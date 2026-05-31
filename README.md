@@ -6,8 +6,9 @@
 
 <p align="center">
   <a href="https://thebvl.gumroad.com/l/rvwbcv"><img src="https://img.shields.io/badge/Buy%20on%20Gumroad-%2439%20one--time-ff90e8?style=for-the-badge&logo=gumroad&logoColor=white" alt="Buy on Gumroad"/></a>
-  <img src="https://img.shields.io/badge/Platform-macOS-blue?style=for-the-badge&logo=apple" alt="macOS"/>
-  <img src="https://img.shields.io/badge/Windows%20%2B%20Linux-Coming%20Soon-lightgrey?style=for-the-badge" alt="Coming Soon"/>
+  <img src="https://img.shields.io/badge/macOS-supported-blue?style=for-the-badge&logo=apple" alt="macOS"/>
+  <img src="https://img.shields.io/badge/Windows-supported-0078D6?style=for-the-badge&logo=windows" alt="Windows"/>
+  <img src="https://img.shields.io/badge/Linux-supported-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux"/>
   <img src="https://img.shields.io/badge/AI-Local%20%7C%20Cloud-green?style=for-the-badge" alt="AI Options"/>
 </p>
 
@@ -26,6 +27,8 @@
 D.R.I.P. reads your saved content across YouTube, X, Instagram, Facebook, TikTok, LinkedIn, and your browser bookmarks — then converts each saved item into a structured, focused PDF tailored to what the content actually is. Recipe? A formatted recipe with ingredient table and method steps. Workout? A training plan with exercise tables. Podcast? A discussion summary with key topics and guest insights. Strategy article? A deep-dive document with sections, actions, and source attribution.
 
 It runs every morning while you sleep. By the time you sit down at your desk, your saved content is sitting on disk as PDFs you can actually use — and it gets better at understanding your taste every week through a built-in self-learning loop.
+
+**Runs natively on macOS, Windows, and Linux.** One installer per system, OS-native scheduling, identical output everywhere.
 
 ---
 
@@ -48,7 +51,7 @@ If you used an earlier version of D.R.I.P., here's what changed:
 
 Most tools that process video content download the file first — consuming gigabytes of storage and putting you in grey territory with platform terms of service. D.R.I.P. doesn't.
 
-**D.R.I.P. reads subtitles and captions only.** No video file is ever stored on your Mac. For videos without captions, it runs lightweight audio transcription directly from the stream — still no download. Your storage stays clean, your ToS risk is zero, and the full intelligence of the content is still extracted.
+**D.R.I.P. reads subtitles and captions only.** No video file is ever stored on your machine. For the small share of videos that have no captions, it downloads audio only to a temporary file, transcribes it locally with Whisper, and deletes the audio the moment transcription finishes. Full video files are never downloaded. Your storage stays clean, your ToS risk is minimal, and the full intelligence of the content is still extracted.
 
 This is not a compromise. It's the right architecture.
 
@@ -77,7 +80,7 @@ Every PDF comes with a matching Markdown file in `Markdown/<same-folder>/`. Each
 
 ## The Self-Learning System
 
-D.R.I.P. comes with a Karpathy-inspired self-improvement loop that runs entirely on your Mac — no model retraining, no GPU, just in-context learning that compounds week over week.
+D.R.I.P. comes with a Karpathy-inspired self-improvement loop that runs entirely on your machine — no model retraining, no GPU, just in-context learning that compounds week over week.
 
 ### How it works
 
@@ -85,7 +88,7 @@ D.R.I.P. comes with a Karpathy-inspired self-improvement loop that runs entirely
 2. **Rate** — You run `drip_manager.py feedback` and tap `k` (keep) or `t` (trash) per PDF. Takes 30 seconds for a day's worth.
 3. **Learn** — Trashed PDFs become training signal: the AI derives a one-line rule from each mistake and stores it.
 4. **Improve** — Every future run injects those learned rules into the classifier prompt as few-shot examples. The classifier gets personalised to your actual content.
-5. **Autoimprove (optional)** — Run `drip_manager.py autoimprove` for an experiment loop that generates new candidate rules, tests them against your verified examples, and commits the winners. Karpathy's autoresearch loop, scaled to a MacBook.
+5. **Autoimprove (optional)** — Run `drip_manager.py autoimprove` for an experiment loop that generates new candidate rules, tests them against your verified examples, and commits the winners. Karpathy's autoresearch loop, scaled to your laptop.
 
 ### What it produces
 
@@ -134,9 +137,9 @@ Approve → DRIP generates a combined PDF in `PDFGuides/Collections/`. Decline �
 | Facebook | Saved posts |
 | TikTok | Favourites |
 | LinkedIn | Saved posts |
-| Browser Bookmarks | Chrome, Safari, Firefox, Brave, Edge, Arc, Vivaldi, Opera, LibreWolf |
+| Browser Bookmarks | Chrome, Chromium, Brave, and Edge auto-detected on every OS; Safari on macOS; any other browser via an exported `bookmarks.html` |
 
-D.R.I.P. uses your existing browser session — no passwords, no OAuth tokens, no third-party logins. Cookies stay on your Mac.
+D.R.I.P. uses your existing browser session — no passwords, no OAuth tokens, no third-party logins. Cookies stay on your machine.
 
 ---
 
@@ -159,13 +162,21 @@ Set `"provider": "auto"` in `config.json` and D.R.I.P. handles the rest. See [`A
 
 ## Quick Start
 
+> Commands shown as `venv/bin/python …` are for **macOS / Linux**. On **Windows**, use `venv\Scripts\python …` instead — everything after the interpreter is identical on all three systems.
+
 ### 1 — Install
 
+**macOS / Linux:**
 ```bash
 bash install.sh
 ```
 
-Creates the Python environment and installs all dependencies. Takes 2–3 minutes on first run.
+**Windows (PowerShell):**
+```powershell
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
+Creates the Python environment, installs all dependencies, and registers the daily 8 AM background run for your OS. Takes 2–3 minutes on first run.
 
 ### 2 — Connect your accounts
 
@@ -190,8 +201,14 @@ YouTube, Facebook, and bookmarks detect your session automatically — no userna
 
 ### 4 — Run it
 
+**macOS / Linux:**
 ```bash
 bash run_drip.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+powershell -ExecutionPolicy Bypass -File run_drip.ps1
 ```
 
 D.R.I.P. scans your platforms, asks a few onboarding questions (once only), and generates your first PDFs. From here it runs itself every morning at 8 AM.
@@ -229,9 +246,12 @@ After each run, D.R.I.P. asks 3-5 smart questions about the content it just proc
 
 ## Management Commands
 
+The Python subcommands are identical on every OS — only the interpreter path changes (`venv/bin/python` on macOS/Linux, `venv\Scripts\python` on Windows).
+
 ```bash
 # Run D.R.I.P. now (one platform per run, auto-rotates each run)
-bash run_drip.sh
+bash run_drip.sh                                  # macOS / Linux
+powershell -ExecutionPolicy Bypass -File run_drip.ps1   # Windows
 
 # Rate recent PDFs to train the self-learning loop
 venv/bin/python drip_manager.py feedback
@@ -248,17 +268,29 @@ venv/bin/python drip_manager.py questions
 # Generate a monthly synthesis review of everything processed
 venv/bin/python drip_manager.py review
 
-# View today's run log
-tail -f Logs/drip-$(date +%Y-%m-%d).log
-
-# Stop the daily background service
-launchctl unload ~/Library/LaunchAgents/com.drip.agent.plist
-
-# Re-enable the daily background service
-launchctl load ~/Library/LaunchAgents/com.drip.agent.plist
-
 # Redo the first-run setup questions
 venv/bin/python onboarding.py --reset
+```
+
+**View today's run log:**
+```bash
+tail -f Logs/drip-$(date +%Y-%m-%d).log                              # macOS / Linux
+Get-Content ".\Logs\drip-$(Get-Date -Format yyyy-MM-dd).log" -Wait   # Windows
+```
+
+**Stop / re-enable the daily background service:**
+```bash
+# macOS
+launchctl unload ~/Library/LaunchAgents/com.drip.agent.plist
+launchctl load   ~/Library/LaunchAgents/com.drip.agent.plist
+
+# Linux
+systemctl --user stop  com.drip.agent.timer
+systemctl --user start com.drip.agent.timer
+
+# Windows (PowerShell)
+Disable-ScheduledTask -TaskName "DRIP Agent"
+Enable-ScheduledTask  -TaskName "DRIP Agent"
 ```
 
 ---
@@ -319,8 +351,10 @@ D.R.I.P/
 ├── HOW-TO-USE.md               Full usage guide
 ├── FAQ.md                      Common questions and troubleshooting
 │
-├── install.sh                  One-command installer
-├── run_drip.sh                 Manual run script
+├── install.sh                  One-command installer (macOS / Linux)
+├── install.ps1                 One-command installer (Windows)
+├── run_drip.sh                 Manual run script (macOS / Linux)
+├── run_drip.ps1                Manual run script (Windows)
 ├── reset.sh                    Clear all generated content + state (start fresh)
 ├── setup_cookies.py            Cookie pipeline (paired with the Chrome extension)
 ├── onboarding.py               First-run setup wizard
@@ -328,17 +362,19 @@ D.R.I.P/
 ├── memory_manager.py           Persistent memory + self-learning storage
 ├── content_processor.py        Classification + LLM generation
 ├── state_manager.py            Item tracking + platform rotation
-└── com.drip.agent.plist        macOS launchd schedule for daily background runs
+├── com.drip.agent.plist        macOS launchd schedule for daily background runs
+├── com.drip.agent.service      Linux systemd service unit
+└── com.drip.agent.timer        Linux systemd timer (daily 8 AM trigger)
 ```
 
 ---
 
 ## Security
 
-- **Cookies** are stored in `cookies/` with permissions set to owner-only (`chmod 600`). No other user on your Mac can read them.
+- **Cookies** are stored in `cookies/` with owner-only permissions (`chmod 600` on macOS/Linux; locked to your user account on Windows). No other user on your machine can read them.
 - **Cookies contain session tokens only — never passwords.**
 - **Nothing in D.R.I.P. uploads, syncs, or transmits your cookies or scraped content to any server.**
-- When using a local AI (Ollama / LM Studio), your content never leaves your Mac at all.
+- When using a local AI (Ollama / LM Studio), your content never leaves your machine at all.
 - The Memory folder (your answers, ratings, learned rules) is also local-only and never transmitted.
 - The Chrome extension that exports your cookies runs entirely on your machine — it POSTs only to `localhost:7331`, never to the internet.
 
@@ -346,7 +382,12 @@ D.R.I.P/
 
 ## Schedule
 
-By default D.R.I.P. runs every morning at 8 AM via macOS `launchd`. You can change the time in `com.drip.agent.plist` (look for `<key>StartCalendarInterval</key>`).
+By default D.R.I.P. runs every morning at 8 AM using your operating system's native scheduler — `launchd` on macOS, a `systemd` user timer on Linux, and Task Scheduler ("DRIP Agent") on Windows. The installer sets this up for you.
+
+To change the run time:
+- **macOS** — edit the `<key>Hour</key>` / `<key>Minute</key>` values in `com.drip.agent.plist`, then reload it.
+- **Linux** — edit `OnCalendar=` in `~/.config/systemd/user/com.drip.agent.timer`, then `systemctl --user daemon-reload`.
+- **Windows** — open Task Scheduler, find **DRIP Agent**, and edit its daily trigger.
 
 One platform is scraped per run, rotating through your enabled list. This is intentional — it spreads the work, keeps each run fast, and lets the self-learning loop converge faster on per-platform patterns.
 

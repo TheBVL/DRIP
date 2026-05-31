@@ -4,11 +4,11 @@
 
 ## AI & Privacy
 
-**Q: Does my saved content leave my Mac?**
+**Q: Does my saved content leave my machine?**
 
 It depends entirely on which AI provider you configure:
 
-- **Local AI (Ollama, LM Studio):** Nothing leaves your Mac. 100% private.
+- **Local AI (Ollama, LM Studio):** Nothing leaves your machine. 100% private.
 - **Cloud AI (Claude API, OpenAI):** Summaries of your saved content are sent to the provider's servers for analysis. Their privacy policies apply.
 
 D.R.I.P. defaults to `auto` mode, which tries local AI first and only uses cloud if a local option is unavailable AND you have a cloud API key configured. If you have not set any API keys, cloud AI is never used.
@@ -51,7 +51,7 @@ No. D.R.I.P. uses a subtitles-first approach: it downloads only the caption/subt
 
 **Q: What if a video has no subtitles?**
 
-It falls back to Whisper AI, which transcribes audio locally on your Mac. This is slower but still private. Set `whisper_fallback: false` in `config.json` to skip this step if you prefer speed over coverage.
+It falls back to Whisper AI, which downloads only the audio to a temporary file and transcribes it locally on your machine, then deletes the file. This is slower but still private. Set `whisper_fallback: false` in `config.json` to skip this step if you prefer speed over coverage.
 
 ---
 
@@ -59,11 +59,15 @@ It falls back to Whisper AI, which transcribes audio locally on your Mac. This i
 
 **Q: Does it run automatically?**
 
-Yes. After running `setup_background.sh`, it runs every morning at 8 AM via macOS launchd. Your Mac needs to be on and awake at that time. If it's asleep, it runs the next time the schedule triggers while awake.
+Yes. The installer sets up a daily 8 AM run using your operating system's native scheduler — `launchd` on macOS, a `systemd` user timer on Linux, and Task Scheduler ("DRIP Agent") on Windows. Your machine needs to be on and awake at that time. If it's asleep, it runs the next time the schedule triggers while awake (on Linux and macOS a missed run also catches up automatically).
 
 **Q: Can I run it manually?**
 
-Yes. Run `bash run_drip.sh` from Terminal, or trigger it with `launchctl start com.drip.agent`.
+Yes.
+- **macOS / Linux:** `bash run_drip.sh` from Terminal.
+- **Windows:** `powershell -ExecutionPolicy Bypass -File run_drip.ps1` from PowerShell.
+
+You can also trigger the scheduled job directly: `launchctl start com.drip.agent` (macOS), `systemctl --user start com.drip.agent.service` (Linux), or `Start-ScheduledTask -TaskName "DRIP Agent"` (Windows).
 
 **Q: What happens on the first run?**
 
