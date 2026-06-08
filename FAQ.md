@@ -220,9 +220,9 @@ Facebook sessions expire more aggressively than other platforms. If you notice r
 
 ## Troubleshooting
 
-**Q: The LLM step failed. Will D.R.I.P. still produce output?**
+**Q: The AI step failed. Will D.R.I.P. still produce output?**
 
-Yes. If the LLM is unavailable or returns an error, D.R.I.P. uses a template-based fallback that generates basic outputs from the raw scraped content. The output is less personalised but the files are still created.
+Yes. The AI is only used to sort items into topic folders — it never writes your documents. If it's unavailable, your items are still archived exactly the same way (source text + metadata); they simply land in the `Unsorted/` folder for you to file. Your PDFs never depend on the AI being up.
 
 **Q: Ollama is installed but D.R.I.P. says it's unavailable.**
 
@@ -246,10 +246,6 @@ launchctl unload ~/Library/LaunchAgents/com.drip.agent.plist
 
 To re-enable: `launchctl load ~/Library/LaunchAgents/com.drip.agent.plist`
 
-**Q: How does the memory system get smarter over time?**
+**Q: Does D.R.I.P. ever change or "improve" what I saved?**
 
-Two ways:
-1. **Manual** — edit `Memory/user-preferences.txt` with plain English instructions any time
-2. **Automatic** — `Memory/pattern-history.json` tracks which topics and categories appear most across your saves; the AI reads this on every run and adjusts its output focus accordingly
-
-The longer you use D.R.I.P., the more its outputs reflect what you actually care about.
+No. v2 is extract-only: every PDF is the actual content of the item you saved, cleaned up and laid out with its title, source, date, and link — nothing added, nothing rewritten. The AI's only job is deciding which folder an item belongs in. What you saved is what you get.
