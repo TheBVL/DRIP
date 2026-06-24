@@ -1,97 +1,110 @@
-<p align="center">
-  <img src="assets/branding/logo.png" alt="DRIP Logo" width="200"/>
-</p>
+# D.R.I.P.
 
-<h1 align="center">D.R.I.P. — Digitally Retained. Intelligently Processed.</h1>
+### Digitally Retained. Intelligently Processed.
 
-<p align="center">
-  <a href="https://thebvl.gumroad.com/l/rvwbcv"><img src="https://img.shields.io/badge/Buy%20on%20Gumroad-%2439%20one--time-ff90e8?style=for-the-badge&logo=gumroad&logoColor=white" alt="Buy on Gumroad"/></a>
-  <img src="https://img.shields.io/badge/macOS-supported-blue?style=for-the-badge&logo=apple" alt="macOS"/>
-  <img src="https://img.shields.io/badge/Windows-supported-0078D6?style=for-the-badge&logo=windows" alt="Windows"/>
-  <img src="https://img.shields.io/badge/Linux-supported-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux"/>
-  <img src="https://img.shields.io/badge/output-source--faithful-success?style=for-the-badge" alt="Source-faithful"/>
-</p>
+**The stuff you save is intent you never get back to. D.R.I.P. turns it into a library you actually own — and, over time, into something you could publish.**
 
-<p align="center"><strong>Everything you've saved, archived as clean PDFs you actually own — faithfully, with nothing made up.</strong></p>
+You save a workout. A recipe. A podcast with a strategy you meant to try. A how-to you wanted to come back to. Then the feed moves, life happens, and it's gone. Months later you save the same thing again.
+
+It doesn't take thousands of saves for this to hurt. A hundred is already a pile you'll never sort by hand.
+
+D.R.I.P. runs on your own machine, every morning, and does the sorting for you — turning each saved item into a clean, structured document, filed by topic. Keep going and each topic quietly compounds: your saved training clips become a training library; your saved "how to grow on Instagram" videos become a playbook; a year of saves becomes a guide you can rewrite and sell.
 
 ---
 
-You save things constantly — articles, posts, bookmarks, videos — and never go back to them. Your "saved" tab is a graveyard.
+## The one promise that matters
 
-**D.R.I.P. turns that graveyard into a library.** Every morning it reads what you saved across X, Instagram, Facebook, YouTube, TikTok, LinkedIn, and your browser bookmarks, and writes each item to disk as a clean PDF (plus a Markdown copy) — the real content of what you saved, sorted into folders by topic. By the time you sit down, it's done. You read what you saved, on your terms, offline, forever.
+**D.R.I.P. structures your content. It never invents it.**
 
----
+Every figure, quantity, quote, and step in your documents is checked against the original source. If it wasn't in what you saved, it isn't in your document — no fake summaries, no invented steps, no made-up numbers, no hallucinated quotes. The only thing it adds is unit conversions of values you already saved (35 kg → 35 kg / 77 lb).
 
-## The one promise that matters: it doesn't make things up
-
-D.R.I.P. v2 is **extract-only.** Each PDF contains the actual text of the page or post you saved — cleaned up and laid out, with its title, source, date, and link — and **nothing else.** No AI-written summaries pretending to be the source. No invented steps, tips, or "action plans." No fabricated quotes or facts.
-
-Every line in every PDF traces back to the thing you bookmarked. If someone asks *"where did this come from?"* the answer is always the same: **from the source you saved.**
-
-That sounds obvious. It isn't — most "AI" tools quietly rewrite, embellish, and hallucinate. D.R.I.P. deliberately doesn't. It archives. That's the product.
+Most "AI" tools quietly embellish. D.R.I.P. has a verification layer that strips anything it can't trace back to your source. Structure added. Nothing fabricated. That's the product.
 
 ---
 
-## What it does
+## How it works, end to end
 
-- **Reads your saves across 7 sources** — X bookmarks, Instagram saves, Facebook saves, YouTube (Watch Later + Liked), TikTok favourites, LinkedIn saves, and browser bookmarks (Chrome / Brave / Edge / Safari).
-- **Archives each one as a source-faithful PDF + Markdown** — the real content, with title, source, date, and a clean link.
-- **Sorts everything into topic folders** automatically (Tech, Business, Health, Travel, and so on), with anything low-confidence dropped into an `Unsorted/` folder for you to glance over.
-- **Runs itself every morning at 8 AM** via your OS's native scheduler. You do nothing after setup.
-- **Keeps your data yours.** Sorting can run on a fully local AI (free, private) or a cloud key if you prefer — and the *content of your PDFs never depends on it.*
-
----
-
-## What's new in v2 — the safety rebuild
-
-v1 tried to be clever and "improve" your content with AI. That produced confident, well-formatted documents that didn't always match what you actually saved. v2 throws that out and does the honest thing instead:
-
-- **Extract-only output.** The document body is your source text, verbatim. No AI writes it. (The themed "recipe table / workout plan / strategy guide" generators from v1 are gone — and with them, any chance of fabrication.)
-- **Content floor.** Empty pages, login walls, and cookie-banner shells never become PDFs. No body, no document.
-- **Bookmark triage.** Homepages, sign-in pages, and utility shortcuts are filtered out, so only the things you actually saved to *read* get archived. You stay in control via a plain-text rules file.
-- **URL sanitization.** Any auth token, session id, or signed-URL signature is stripped before a link is ever stored or shown. Your secrets never land in a file.
-- **A kill switch.** A single safety flag governs all output — belt-and-braces for a tool that runs unattended.
-
-If you bought v1: this update is **free.**
+1. **Capture** — D.R.I.P. reads what you've saved across seven platforms: YouTube (Watch Later, Liked, playlists), Instagram (saved), Facebook (saved), X (bookmarks), TikTok (favourites + liked), LinkedIn (saved), and browser bookmarks.
+2. **Choose what counts** — at setup you decide, per platform and per folder, what gets processed. Saved a *MotoGP* playlist or a *banking* bookmark you only keep for quick access? Tell D.R.I.P. to skip it. It also reviews your loose, un-foldered bookmarks so the things you keep handy for visiting never become documents.
+3. **Structure** — each item becomes a document built for what it actually is: a recipe → ingredient table (metric + imperial) + numbered method; a workout → sets/reps/rest plan; a podcast → discussion summary with quotes and jump-back timestamps; finance → a clean briefing with figures preserved exactly.
+4. **Compound** — items of the same kind accumulate by topic. Each month and quarter, D.R.I.P. offers (never forces) to compile a period's collection into a single long-form guide — cover, contents, chapters — with an editable copy you can rewrite and even sell.
+5. **Improve** — move a document to a different folder, or rate it keep/trash, and the sorting gets sharper every week. It learns your taste; no model retraining, all on your machine.
 
 ---
 
-## Why it never downloads your videos
+## Why it's different
 
-Most tools that handle video download the whole file — gigabytes of storage and grey-area territory with platform terms. D.R.I.P. doesn't. It reads **captions/subtitles only**. For the rare video with no captions, it pulls audio to a temporary file, transcribes it locally, and deletes the audio the moment it's done. Full video files are never stored. Your disk stays clean; the text of what you saved is preserved.
-
----
-
-## Private by design
-
-- Runs on **your machine.** Nothing is uploaded, synced, or sold.
-- Uses your **existing browser session** — no passwords, no third-party logins. Cookies stay local.
-- Sorting can run on a **local AI** (Ollama / LM Studio) so your content never leaves the device at all. A cloud key (Claude / GPT / Grok) is optional and only ever sees a short snippet for *folder routing* — never to write your documents.
+- **It runs on your machine, not ours.** Your data never leaves your computer. No cloud upload. No subscription. No lock-in. The comparable tools are cloud-based and charge monthly. This one doesn't.
+- **It keeps your secrets out of your files.** Session tokens and auth links are stripped before anything is saved. Login pages, homepages, feeds, and empty shells are filtered out — only things you genuinely saved to read get archived.
+- **It's faithful by design.** The grounding check is the core feature, not a footnote.
+- **It builds toward something sellable.** The compile step turns your own curation into an asset, not just tidy files.
 
 ---
 
-## Cross-platform
+## Your AI. Your cost. Your call.
 
-Runs natively on **macOS, Windows, and Linux.** One installer per system, OS-native daily scheduling (launchd / systemd / Task Scheduler), identical output everywhere.
+Run it fully local and free with **Ollama** or **LM Studio**, or plug in your own **Claude / GPT / Grok** API key. Local or cloud, the same faithfulness rules apply. No API key required to get started.
 
 ---
 
-## Get it
+## What's included
 
-**[Buy on Gumroad — $39, one-time. No subscription.](https://thebvl.gumroad.com/l/rvwbcv)**
+- Full pipeline: scraping, caption/transcript extraction, structured source-faithful documents
+- 7 platform readers (YouTube, Instagram, Facebook, X, TikTok, LinkedIn, Bookmarks)
+- A structured PDF **and** Markdown for every item, themed to the content
+- Themed templates: recipes, workouts, podcasts, business, finance, tech, motivation, travel, health
+- Source-grounding verification — anything not traceable to your source is removed
+- Metric/imperial conversions carried on every measurement
+- Timestamps on long videos and podcasts so you can jump back to the moment
+- Per-platform, per-folder, and per-bookmark control over what gets processed
+- New-folder detection — D.R.I.P. asks include/skip whenever a new folder appears
+- Monthly & quarterly compile-to-sell — turn a period's saves into a long-form guide
+- Self-learning sorting that improves from your folder moves and ratings
+- One-command installer for macOS, Windows, and Linux
+- Automated morning scheduler (launchd / systemd / Task Scheduler)
+- Full documentation: HOW-TO-USE, FAQ, AI-SETUP
 
-One payment. Yours forever. Free updates — including this v2 safety rebuild.
+---
+
+## Requirements
+
+- macOS 10.15+, Windows 10+, or Linux
+- Python 3.10+
+- Ollama (free) **or** a cloud AI API key (Claude, GPT, or Grok)
+
+---
+
+## Quick start
+
+```bash
+# 1. Install (creates the environment and installs everything)
+./install.sh            # macOS / Linux
+#   install.ps1         # Windows (PowerShell)
+
+# 2. Connect your accounts in the browser
+python setup_cookies.py
+
+# 3. Tell D.R.I.P. what to process, one platform and folder at a time
+python onboarding.py
+
+# 4. First run
+./run_drip.sh
+```
+
+From then on it wakes every morning, processes your saves, and builds your library while you work.
+
+---
+
+## A note on how D.R.I.P. reads video
+
+It never builds a library of downloaded video. It reads subtitles and captions only. For the minority of videos without captions, it downloads audio to a temporary file, transcribes it locally, and deletes it the moment transcription finishes. No video file is ever left on your drive.
 
 ---
 
 ## Support
 
-Questions or trouble? Contact **Business Venture Link** at info@thebvl.com.
-
-The full setup guide, FAQ, and AI options ship inside the product.
+Full documentation ships with the app. Questions: **info@thebvl.com**
 
 ---
 
-<p align="center"><em>Built for people who save things they mean to come back to — but never do.</em></p>
-
-<p align="center">© Business Venture Link. All rights reserved.</p>
+*Built for people who save things they mean to come back to — but never do. Until now.*
