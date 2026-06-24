@@ -4,11 +4,11 @@
 
 ## AI & Privacy
 
-**Q: Does my saved content leave my machine?**
+**Q: Does my saved content leave my Mac?**
 
 It depends entirely on which AI provider you configure:
 
-- **Local AI (Ollama, LM Studio):** Nothing leaves your machine. 100% private.
+- **Local AI (Ollama, LM Studio):** Nothing leaves your Mac. 100% private.
 - **Cloud AI (Claude API, OpenAI):** Summaries of your saved content are sent to the provider's servers for analysis. Their privacy policies apply.
 
 D.R.I.P. defaults to `auto` mode, which tries local AI first and only uses cloud if a local option is unavailable AND you have a cloud API key configured. If you have not set any API keys, cloud AI is never used.
@@ -51,7 +51,7 @@ No. D.R.I.P. uses a subtitles-first approach: it downloads only the caption/subt
 
 **Q: What if a video has no subtitles?**
 
-It falls back to Whisper AI, which downloads only the audio to a temporary file and transcribes it locally on your machine, then deletes the file. This is slower but still private. Set `whisper_fallback: false` in `config.json` to skip this step if you prefer speed over coverage.
+It falls back to Whisper AI, which transcribes audio locally on your Mac. This is slower but still private. Set `whisper_fallback: false` in `config.json` to skip this step if you prefer speed over coverage.
 
 ---
 
@@ -59,15 +59,11 @@ It falls back to Whisper AI, which downloads only the audio to a temporary file 
 
 **Q: Does it run automatically?**
 
-Yes. The installer sets up a daily 8 AM run using your operating system's native scheduler — `launchd` on macOS, a `systemd` user timer on Linux, and Task Scheduler ("DRIP Agent") on Windows. Your machine needs to be on and awake at that time. If it's asleep, it runs the next time the schedule triggers while awake (on Linux and macOS a missed run also catches up automatically).
+Yes. After running `setup_background.sh`, it runs every morning at 8 AM via macOS launchd. Your Mac needs to be on and awake at that time. If it's asleep, it runs the next time the schedule triggers while awake.
 
 **Q: Can I run it manually?**
 
-Yes.
-- **macOS / Linux:** `bash run_drip.sh` from Terminal.
-- **Windows:** `powershell -ExecutionPolicy Bypass -File run_drip.ps1` from PowerShell.
-
-You can also trigger the scheduled job directly: `launchctl start com.drip.agent` (macOS), `systemctl --user start com.drip.agent.service` (Linux), or `Start-ScheduledTask -TaskName "DRIP Agent"` (Windows).
+Yes. Run `bash run_drip.sh` from Terminal, or trigger it with `launchctl start com.drip.agent`.
 
 **Q: What happens on the first run?**
 
@@ -220,9 +216,9 @@ Facebook sessions expire more aggressively than other platforms. If you notice r
 
 ## Troubleshooting
 
-**Q: The AI step failed. Will D.R.I.P. still produce output?**
+**Q: The LLM step failed. Will D.R.I.P. still produce output?**
 
-Yes. The AI is only used to sort items into topic folders — it never writes your documents. If it's unavailable, your items are still archived exactly the same way (source text + metadata); they simply land in the `Unsorted/` folder for you to file. Your PDFs never depend on the AI being up.
+Yes. If the LLM is unavailable or returns an error, D.R.I.P. uses a template-based fallback that generates basic outputs from the raw scraped content. The output is less personalised but the files are still created.
 
 **Q: Ollama is installed but D.R.I.P. says it's unavailable.**
 
@@ -246,6 +242,10 @@ launchctl unload ~/Library/LaunchAgents/com.drip.agent.plist
 
 To re-enable: `launchctl load ~/Library/LaunchAgents/com.drip.agent.plist`
 
-**Q: Does D.R.I.P. ever change or "improve" what I saved?**
+**Q: How does the memory system get smarter over time?**
 
-No. v2 is extract-only: every PDF is the actual content of the item you saved, cleaned up and laid out with its title, source, date, and link — nothing added, nothing rewritten. The AI's only job is deciding which folder an item belongs in. What you saved is what you get.
+Two ways:
+1. **Manual** — edit `Memory/user-preferences.txt` with plain English instructions any time
+2. **Automatic** — `Memory/pattern-history.json` tracks which topics and categories appear most across your saves; the AI reads this on every run and adjusts its output focus accordingly
+
+The longer you use D.R.I.P., the more its outputs reflect what you actually care about.
